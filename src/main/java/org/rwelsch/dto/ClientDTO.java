@@ -1,9 +1,7 @@
-package dto;
+package org.rwelsch.dto;
 
 import java.math.BigDecimal;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 public class ClientDTO {
 
@@ -28,6 +26,10 @@ public class ClientDTO {
 
     public BigDecimal getSavings() {
         return savings;
+    }
+
+    public void setSavings(BigDecimal savings) {
+        this.savings = savings;
     }
 
     public List<OperationDTO> getOperations() {

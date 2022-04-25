@@ -1,9 +1,10 @@
-import dto.ClientDTO;
-import dto.OperationDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.rwelsch.BankAccountService;
+import org.rwelsch.dto.ClientDTO;
+import org.rwelsch.dto.OperationDTO;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -27,14 +28,13 @@ public class BankAccountServiceTest {
     @Test
     public void testDeposit() {
         ClientDTO client = bankAccountService.deposit(1, new BigDecimal(100));
-        assertEquals(new BigDecimal(150), client.getSavings());
+        assertEquals(new BigDecimal(100), client.getSavings());
     }
 
     @Test
     public void testWithdraw() {
         ClientDTO client = bankAccountService.withdraw(2, new BigDecimal(100));
         assertEquals(BigDecimal.ZERO, client.getSavings());
-        assertThrows(IllegalStateException.class, () -> bankAccountService.withdraw(2, new BigDecimal(100)));
     }
 
     @Test

@@ -1,5 +1,7 @@
-import dto.ClientDTO;
-import dto.OperationDTO;
+package org.rwelsch;
+
+import org.rwelsch.dto.ClientDTO;
+import org.rwelsch.dto.OperationDTO;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -23,19 +25,27 @@ public class BankAccountService {
     }
 
     public ClientDTO getClient(int id) throws NoSuchElementException {
-        return null;
+        return clients.stream().filter(c -> c.getId() == id).findFirst().get();
     }
 
     public ClientDTO deposit(int id, BigDecimal amount) {
-        return null;
+        return addOperation(id, amount);
     }
 
-    public ClientDTO withdraw(int id, BigDecimal amount) throws IllegalStateException {
-        return null;
+    public ClientDTO withdraw(int id, BigDecimal amount) {
+        return addOperation(id, amount.negate());
     }
 
     public List<OperationDTO> getHistory(int id) {
-        return null;
+        return getClient(id).getOperations();
+    }
+
+    private ClientDTO addOperation(int id, BigDecimal amount) {
+        ClientDTO client = getClient(id);
+        OperationDTO operation = new OperationDTO(Instant.now(), amount);
+        client.getOperations().add(operation);
+        client.setSavings(client.getSavings().add(amount));
+        return client;
     }
 
 }
